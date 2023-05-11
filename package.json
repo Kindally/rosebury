@@ -1,0 +1,17 @@
+{
+  "name": "roseburybot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Jasmine Regnér",
+  "license": "ISC",
+  "dependencies": {
+    "guilded.js": "^0.20.8"
+  },
+  "devDependencies": {
+    "eslint": "^8.40.0"
+  }
+}
