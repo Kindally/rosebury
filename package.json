@@ -9,7 +9,8 @@
   "author": "Jasmine Regnér",
   "license": "ISC",
   "dependencies": {
-    "guilded.js": "^0.20.8"
+    "guilded.js": "^0.20.8",
+    "mysql2": "^3.3.1"
   },
   "devDependencies": {
     "eslint": "^8.40.0"
