@@ -7,9 +7,13 @@ function cmdHandler(message) {
 	const userMessage = reformatMsg(message);
 	const cmd = userMessage[0];
 
-	const cmdPath = require(`../commands/${cmd}`);
-
-	cmdPath.callback(message, userMessage);
+	try {
+		const cmdPath = require(`../commands/${cmd}`);
+		cmdPath.callback(message, userMessage);
+	}
+	catch (err) {
+		message.reply('The command does not exist!');
+	}
 }
 
 module.exports = { cmdHandler };
