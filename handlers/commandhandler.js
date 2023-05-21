@@ -3,17 +3,21 @@ function reformatMsg(message) {
 	return userMsg;
 }
 
-function cmdHandler(message) {
-	const userMessage = reformatMsg(message);
-	const cmd = userMessage[0];
+function cmdHandler(client, prefix) {
+	client.on('messageCreated', async (message) => {
+		if (!message.content.startsWith(prefix)) return;
 
-	try {
-		const cmdPath = require(`../commands/${cmd}`);
-		cmdPath.callback(message, userMessage);
-	}
-	catch (err) {
-		message.reply('The command does not exist!');
-	}
+		const userMessage = reformatMsg(message);
+		const cmd = userMessage[0];
+
+		try {
+			const cmdPath = require(`../commands/${cmd}`);
+			cmdPath.callback(message, userMessage);
+		}
+		catch (err) {
+			message.reply('The command does not exist!');
+		}
+	});
 }
 
 module.exports = { cmdHandler };

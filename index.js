@@ -12,10 +12,6 @@ client.on('ready', () => {
 	console.log(`Bot is successfully logged in as ${client.user.name}`);
 });
 
-client.on('messageCreated', async (message) => {
-	if (!message.content.startsWith(prefix)) return;
-
-	cmdHandler(message);
-});
+cmdHandler(client, prefix);
 
 client.login();
