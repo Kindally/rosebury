@@ -1,6 +1,6 @@
 const { Client } = require('guilded.js');
 const { client_token } = require('./config.json');
-const { reformatMsg } = require('./utils/reformatMessage');
+const { cmdHandler } = require('./handlers/commandhandler');
 
 const prefix = '!';
 
@@ -14,7 +14,8 @@ client.on('ready', () => {
 
 client.on('messageCreated', async (message) => {
 	if (!message.content.startsWith(prefix)) return;
-	console.log(reformatMsg(message));
+
+	cmdHandler(message);
 });
 
 client.login();
