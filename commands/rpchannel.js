@@ -12,7 +12,6 @@ module.exports = {
 		if (command.admin || command.dev) command.cmdCtrl(message, message.member.isOwner, message.authorId);
 		const [, subcmd, ...args] = userMessage;
 		const viewSql = `SELECT * FROM rp_channel WHERE server_id = '${message.serverId}' AND channel_id = '${message.channelId}'`;
-		const subcmdRemoveSql = `SELECT * FROM rp_channel WHERE server_id = '${message.serverId}' AND channel_id = '${args[0]}'`;
 		const tableColumn = 'channel_name';
 
 		switch (subcmd) {
@@ -31,17 +30,17 @@ module.exports = {
 				message,
 				true,
 				'The channel could not be removed as it doesn\'t exist.',
-				`DELETE FROM rp_channel WHERE server_id = '${message.serverId}' AND channel_id = '${args[0]}'`,
-				subcmdRemoveSql,
+				`DELETE FROM rp_channel WHERE server_id = '${message.serverId}' AND channel_id = '${message.channelId}'`,
+				viewSql,
 				tableColumn,
 			);
 			break;
 		case 'update':
 			command.editType(
 				message,
-				false,
+				true,
 				'The channel could not be updated as it doesn\'t exist.',
-				`UPDATE rp_channel SET channel_name = '${args[0]} WHERE server_id = ${message.serverId}' AND channel_id = '${message.channelId}'`,
+				`UPDATE rp_channel SET channel_name = '${args[0]}' WHERE server_id = '${message.serverId}' AND channel_id = '${message.channelId}'`,
 				viewSql,
 				tableColumn,
 			);
