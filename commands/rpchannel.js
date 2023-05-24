@@ -4,7 +4,6 @@ const { dbCtrl } = require('../mysqldb/connectDB');
 const command = new Command(
 	'rpchannel',
 	'Allows to add channel id to the database',
-	false,
 	true,
 );
 
@@ -17,13 +16,17 @@ Command.prototype.infoView = async function(message, sql) {
 		content.push(`${rows[i].channel_name}: `);
 		content.push(`${rows[i].channel_id}\n`);
 	}
+
 	const response = content.join('');
 	return message.reply(response);
 };
 
 module.exports = {
 	callback: async (message, userMessage) => {
-		if (command.admin || command.dev) command.cmdCtrl(message, message.member.isOwner, message.authorId);
+		let access = false;
+		if (command.admin) access = await command.cmdCtrl(message.member.isOwner, message.member.roleIds, message.serverId);
+		if (!access) return message.reply('Only admins of this server can use this command');
+
 		const [, subcmd, ...args] = userMessage;
 		const viewSql = `SELECT * FROM rp_channel WHERE server_id = '${message.serverId}' AND channel_id = '${message.channelId}'`;
 		const tableColumn = 'channel_name';
