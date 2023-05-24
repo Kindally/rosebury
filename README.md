@@ -4,8 +4,7 @@ This bot will in the future allow you to record roleplaying experience while doi
 
 ## Current commands
 
-- Ping
-  - Responds with pong
+- rpchannel
   - Command that add/edit/remove channels that count experience
 
 ## Planned features
