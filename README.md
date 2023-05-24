@@ -10,7 +10,9 @@ This bot is mostly a project for me to practice and familiarize myself with java
 ## Current commands
 
 - rpchannel
-  - Command that add/edit/remove channels that count experience
+  - Command that view/add/edit/remove channels that count experience
+- admin
+  - Command that allows you to view/add/remove admin roles
 
 ## Planned features
 
@@ -26,23 +28,38 @@ This bot is mostly a project for me to practice and familiarize myself with java
 
 ## Commands
 
+### Admin
+
+```!admin {view/add/remove} {args}```
+
+#### admin view
+
+**Admin command!** Displays admin roles of the server like this: SERVER_ID: ROLE_ID
+
+#### admin add ROLE_ID
+
+**Admin command!** Adds the role id that is specified as an admin role
+
+#### admin remove ROLE_ID
+
+**Admin command!** Removes the role id that is specified as an admin role
+
 ### Rpchannel
 
 ```!rpchannel {view/add/update/remove} {args}```
 
-#### view
+#### rpchannel view
 
-Displays the server's rp channels like this:
-RP_CHANNEL_NAME: RP_CHANNEL_ID
+**Admin command!** Displays the server's rp channels like this: RP_CHANNEL_NAME: RP_CHANNEL_ID
 
-#### add RP_CHANNEL_NAME
+#### rpchannel add RP_CHANNEL_NAME
 
-Adds the channel id that you are currently in as well as the name specified into the database
+**Admin command!** Adds the channel id that you are currently in as well as the name specified into the database
 
-#### update RP_CHANNEL_NAME
+#### rpchannel update RP_CHANNEL_NAME
 
-Updates the channel name in the database in the channel you are currently in
+**Admin command!** Updates the channel name in the database in the channel you are currently in
 
-#### remove
+#### rpchannel remove
 
-Removes the column in database contains the channel you are currently in
+**Admin command!** Removes the column in database contains the channel you are currently in
