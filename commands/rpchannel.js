@@ -16,6 +16,7 @@ module.exports = {
 
 		switch (subcmd) {
 		case 'add':
+			if (!args[0]) return message.reply('You need to specify channel name.');
 			command.editType(
 				message,
 				false,
@@ -36,6 +37,7 @@ module.exports = {
 			);
 			break;
 		case 'update':
+			if (!args[0]) return message.reply('You need to specifiy new channel name.');
 			command.editType(
 				message,
 				true,
