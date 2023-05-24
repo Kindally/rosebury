@@ -1,20 +1,14 @@
 const { dbCtrl } = require('../mysqldb/connectDB');
-const { developer } = require('../config.json');
 
 class Command {
-	constructor(name, desc, dev, admin) {
+	constructor(name, desc, admin) {
 		this.name = name;
 		this.desc = desc;
-		this.dev = dev;
 		this.admin = admin;
 	}
 
-	async cmdCtrl(isOwner, memberRoleIds, authorId, serverId) {
-		if (this.dev) {
-			if (developer === authorId) return true;
-			else return false;
-		}
-		else if (!isOwner && this.admin) {
+	async cmdCtrl(isOwner, memberRoleIds, serverId) {
+		if (!isOwner && this.admin) {
 			const rows = await dbCtrl.view(`SELECT * FROM admin WHERE server_id = '${serverId}'`);
 			for (let i = 0; i < memberRoleIds.length; i++) {
 				for (let j = 0; j < rows.length; j++) {
@@ -22,11 +16,8 @@ class Command {
 					if (memberRoleIds[i] == rows[j].role_id) return true;
 				}
 			}
-			return false;
 		}
-		else {
-			return true;
-		}
+		return false;
 	}
 
 	async editType(message, updateCell, errorMsg, editSql, viewSql) {
