@@ -32,9 +32,9 @@ class Command {
 		}
 	}
 
-	async editType(message, removeCell, errorMsg, editSql, viewSql) {
+	async editType(message, updateCell, errorMsg, editSql, viewSql) {
 		const rows = await dbCtrl.view(viewSql);
-		if ((rows[0] === undefined && removeCell) || (rows[0] !== undefined && !removeCell)) {
+		if ((rows[0] === undefined && updateCell) || (rows[0] !== undefined && !updateCell)) {
 			return message.reply(errorMsg);
 		}
 		else {
