@@ -15,7 +15,8 @@ function cmdHandler(client, prefix) {
 			cmdPath.callback(message, userMessage);
 		}
 		catch (err) {
-			message.reply('The command does not exist!');
+			console.log(err);
+			return message.reply('The command does not exist!');
 		}
 	});
 }
