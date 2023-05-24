@@ -4,8 +4,7 @@ This bot will in the future allow you to record roleplaying experience while doi
 
 ## Current commands
 
-- Ping
-  - Responds with pong
+- rpchannel
   - Command that add/edit/remove channels that count experience
 
 ## Planned features
@@ -22,21 +21,23 @@ This bot will in the future allow you to record roleplaying experience while doi
 
 ## Commands
 
+### Rpchannel
+
 ```!rpchannel {view/add/update/remove} {args}```
 
-### view
+#### view
 
 Displays the server's rp channels like this:
 RP_CHANNEL_NAME: RP_CHANNEL_ID
 
-### add RP_CHANNEL_NAME
+#### add RP_CHANNEL_NAME
 
 Adds the channel id that you are currently in as well as the name specified into the database
 
-### update RP_CHANNEL_NAME
+#### update RP_CHANNEL_NAME
 
 Updates the channel name in the database in the channel you are currently in
 
-### remove
+#### remove
 
 Removes the column in database contains the channel you are currently in
