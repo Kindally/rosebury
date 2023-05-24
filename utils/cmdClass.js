@@ -9,19 +9,6 @@ class Command {
 		this.admin = admin;
 	}
 
-	async infoView(message, sql) {
-		const rows = await dbCtrl.view(sql);
-		if (rows[0] === undefined) return 'There are no roleplaying channels to view.';
-		const content = [];
-
-		for (let i = 0; i < rows.length; i++) {
-			content.push(`${rows[i].channel_name}: `);
-			content.push(`${rows[i].channel_id}\n`);
-		}
-		const response = content.join('');
-		return message.reply(response);
-	}
-
 	async cmdCtrl(message, isOwner, authorId) {
 		if (this.dev) {
 			if (developer !== authorId) return message.reply('Only devs can use this command');

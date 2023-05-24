@@ -1,4 +1,5 @@
 const { Command } = require('../utils/cmdClass');
+const { dbCtrl } = require('../mysqldb/connectDB');
 
 const command = new Command(
 	'rpchannel',
@@ -6,6 +7,19 @@ const command = new Command(
 	false,
 	true,
 );
+
+Command.prototype.infoView = async function(message, sql) {
+	const rows = await dbCtrl.view(sql);
+	if (rows[0] === undefined) return 'There are no roleplaying channels to view.';
+	const content = [];
+
+	for (let i = 0; i < rows.length; i++) {
+		content.push(`${rows[i].channel_name}: `);
+		content.push(`${rows[i].channel_id}\n`);
+	}
+	const response = content.join('');
+	return message.reply(response);
+};
 
 module.exports = {
 	callback: async (message, userMessage) => {
