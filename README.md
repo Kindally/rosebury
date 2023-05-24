@@ -1,6 +1,11 @@
 # Rosebury Guilded Bot
 
+**Take note before using this bot for any purpose that so far is has little to no safety features.
+Do not add this bot until a proper release.**
+
 This bot will in the future allow you to record roleplaying experience while doing play by post roleplaying.
+
+This bot is mostly a project for me to practice and familiarize myself with javascript, programming, git and github.
 
 ## Current commands
 
