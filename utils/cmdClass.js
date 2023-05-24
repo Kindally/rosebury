@@ -9,13 +9,23 @@ class Command {
 		this.admin = admin;
 	}
 
-	async cmdCtrl(message, isOwner, authorId) {
+	async cmdCtrl(isOwner, memberRoleIds, authorId, serverId) {
 		if (this.dev) {
-			if (developer !== authorId) return message.reply('Only devs can use this command');
+			if (developer === authorId) return true;
+			else return false;
 		}
 		else if (!isOwner && this.admin) {
-			const rows = await dbCtrl.view(`SELECT * FROM admin WHERE admin_id = '${authorId}'`);
-			if (!rows[0].admin_id) return message.reply('Only admins of this server can use this command');
+			const rows = await dbCtrl.view(`SELECT * FROM admin WHERE server_id = '${serverId}'`);
+			for (let i = 0; i < memberRoleIds.length; i++) {
+				for (let j = 0; j < rows.length; j++) {
+					console.log(`memberRoleIds: ${memberRoleIds[i]}, rows: ${rows[j].role_id}`);
+					if (memberRoleIds[i] == rows[j].role_id) return true;
+				}
+			}
+			return false;
+		}
+		else {
+			return true;
 		}
 	}
 
