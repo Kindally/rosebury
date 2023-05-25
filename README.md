@@ -30,58 +30,66 @@ This bot is mostly a project for me to practice and familiarize myself with java
 
 ## Commands
 
-### Admin
+<details>
+<summary>Admin</summary>
 
 ```!admin {view/add/remove} {args}```
 
-#### admin view
+### !admin view
 
 **Admin command!** Displays admin roles of the server like this: SERVER_ID: ROLE_ID
 
-#### admin add ROLE_ID
+### !admin add ROLE_ID
 
 **Admin command!** Adds the role id that is specified as an admin role
 
-#### admin remove ROLE_ID
+### !admin remove ROLE_ID
 
 **Admin command!** Removes the role id that is specified as an admin role
 
-### Rpchannel
+</details>
+
+<details>
+<summary>Rpchannel</summary>
 
 ```!rpchannel {view/add/update/remove} {args}```
 
-#### rpchannel view
+#### !rpchannel view
 
 **Admin command!** Displays the server's rp channels like this: RP_CHANNEL_NAME: RP_CHANNEL_ID
 
-#### rpchannel add RP_CHANNEL_NAME
+#### !rpchannel add RP_CHANNEL_NAME
 
 **Admin command!** Adds the channel id that you are currently in as well as the name specified into the database
 
-#### rpchannel update RP_CHANNEL_NAME
+#### !rpchannel update RP_CHANNEL_NAME
 
 **Admin command!** Updates the channel name in the database in the channel you are currently in
 
-#### rpchannel remove
+#### !rpchannel remove
 
 **Admin command!** Removes the column in database contains the channel you are currently in
+</details>
 
-### Profile
+<details>
+<summary>Profile</summary>
 
 ```!profile {view/add/update/remove} {args}```
 
-#### profile view
+#### !profile view
 
 Displays the user's character profiles like this: PROFILE_NAME, ...
 
-#### profile add PROFILE_NAME
+#### !profile add PROFILE_NAME
 
 Adds specified profile name to the database under the user's id
 
-#### profile update OLD_PROFILE_NAME NEW_PROFILE_NAME
+#### !profile update OLD_PROFILE_NAME NEW_PROFILE_NAME
 
 Updates an old profile name into the new one. Both of which are specified by the user
 
-#### profile remove PROFILE_NAME
+#### !profile remove PROFILE_NAME
 
 Removes a profile with the specified name
+
+</details>
