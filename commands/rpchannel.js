@@ -23,7 +23,7 @@ Command.prototype.infoView = async function(message, sql) {
 
 module.exports = {
 	callback: async (message, userMessage) => {
-		let access = false;
+		let access;
 		if (command.admin) access = await command.cmdCtrl(message.member.isOwner, message.member.roleIds, message.serverId);
 		if (!access) return message.reply('Only admins of this server can use this command');
 
@@ -65,7 +65,7 @@ module.exports = {
 			);
 			break;
 		case 'view':
-			command.infoView(message, viewSql);
+			await command.infoView(message, viewSql);
 			break;
 		default:
 			return message.reply('You need to use a valid subcommand');

@@ -22,7 +22,7 @@ Command.prototype.infoView = async function(message, sql) {
 
 module.exports = {
 	callback: async (message, userMessage) => {
-		let access = false;
+		let access;
 		if (command.admin) access = await command.cmdCtrl(message.member.isOwner, message.member.roleIds, message.authorId);
 		if (!access) return message.reply('Only admins of this server can use this command');
 
@@ -50,7 +50,7 @@ module.exports = {
 			);
 			break;
 		case 'view':
-			command.infoView(message, `SELECT * FROM admin WHERE server_id = '${message.serverId}'`);
+			await command.infoView(message, `SELECT * FROM admin WHERE server_id = '${message.serverId}'`);
 			break;
 		default:
 			return message.reply('You need to use a subcommand.');
