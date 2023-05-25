@@ -22,10 +22,6 @@ Command.prototype.infoView = async function(message, sql) {
 
 module.exports = {
 	callback: async (message, userMessage) => {
-		let access = true;
-		if (command.admin) access = await command.cmdCtrl(message.member.isOwner, message.member.roleIds, message.authorId);
-		if (!access) return message.reply('Only admins of this server can use this command');
-
 		const [ , subcmd, ...args ] = userMessage;
 
 		switch (subcmd) {
