@@ -1,6 +1,7 @@
 const { Client } = require('guilded.js');
 const { client_token } = require('./config.json');
 const { cmdHandler } = require('./handlers/commandhandler');
+const { expHandler } = require('./handlers/experiencehandler');
 
 const prefix = '!';
 
@@ -13,5 +14,6 @@ client.on('ready', () => {
 });
 
 cmdHandler(client, prefix);
+expHandler(client, prefix);
 
 client.login();
