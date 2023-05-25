@@ -28,44 +28,42 @@ module.exports = {
 		if (!access) return message.reply('Only admins of this server can use this command');
 
 		const [, subcmd, ...args] = userMessage;
-		const viewSql = `SELECT * FROM rp_channel WHERE server_id = '${message.serverId}' AND channel_id = '${message.channelId}'`;
-		const tableColumn = 'channel_name';
 
 		switch (subcmd) {
 		case 'add':
 			if (!args[0]) return message.reply('You need to specify channel name.');
-			command.editType(
+			await command.editType(
 				message,
 				false,
 				'The channel could not be added as it already exists.',
 				`INSERT INTO rp_channel (server_id, channel_id, channel_name) VALUES ('${message.serverId}', '${message.channelId}', '${args[0]}')`,
-				viewSql,
-				tableColumn,
+				`SELECT * FROM rp_channel WHERE server_id = '${message.serverId}' AND channel_id = '${message.channelId}'`,
 			);
 			break;
 		case 'remove':
-			command.editType(
+			await command.editType(
 				message,
 				true,
 				'The channel could not be removed as it doesn\'t exist.',
 				`DELETE FROM rp_channel WHERE server_id = '${message.serverId}' AND channel_id = '${message.channelId}'`,
-				viewSql,
-				tableColumn,
+				`SELECT * FROM rp_channel WHERE server_id = '${message.serverId}' AND channel_id = '${message.channelId}'`,
 			);
 			break;
 		case 'update':
 			if (!args[0]) return message.reply('You need to specifiy new channel name.');
-			command.editType(
+			await command.editType(
 				message,
 				true,
 				'The channel could not be updated as it doesn\'t exist.',
 				`UPDATE rp_channel SET channel_name = '${args[0]}' WHERE server_id = '${message.serverId}' AND channel_id = '${message.channelId}'`,
-				viewSql,
-				tableColumn,
+				`SELECT * FROM rp_channel WHERE server_id = '${message.serverId}' AND channel_id = '${message.channelId}'`,
 			);
 			break;
 		case 'view':
-			await command.infoView(message, viewSql);
+			await command.infoView(
+				message,
+				`SELECT * FROM rp_channel WHERE server_id = '${message.serverId}' AND channel_id = '${message.channelId}'`,
+			);
 			break;
 		default:
 			return message.reply('You need to use a valid subcommand');
