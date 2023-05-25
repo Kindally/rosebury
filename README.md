@@ -13,6 +13,8 @@ This bot is mostly a project for me to practice and familiarize myself with java
   - Command that view/add/edit/remove channels that count experience
 - admin
   - Command that allows you to view/add/remove admin roles
+- profile
+  - Command that allows you to view/add/update/remove users' character profiles
 
 ## Planned features
 
@@ -63,3 +65,23 @@ This bot is mostly a project for me to practice and familiarize myself with java
 #### rpchannel remove
 
 **Admin command!** Removes the column in database contains the channel you are currently in
+
+### Profile
+
+```!profile {view/add/update/remove} {args}```
+
+#### profile view
+
+Displays the user's character profiles like this: PROFILE_NAME, ...
+
+#### profile add PROFILE_NAME
+
+Adds specified profile name to the database under the user's id
+
+#### profile update OLD_PROFILE_NAME NEW_PROFILE_NAME
+
+Updates an old profile name into the new one. Both of which are specified by the user
+
+#### profile remove PROFILE_NAME
+
+Removes a profile with the specified name
