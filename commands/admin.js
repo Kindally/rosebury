@@ -7,7 +7,7 @@ const command = new Command(
 	true,
 );
 
-Command.prototype.infoView = async function(message, sql) {
+Command.prototype.infoView = async function(sql) {
 	const rows = await dbCtrl.view(sql);
 	if (rows[0] === undefined) return 'There are no roleplaying channels to view.';
 	const content = [];
@@ -17,7 +17,7 @@ Command.prototype.infoView = async function(message, sql) {
 	}
 
 	const response = content.join('');
-	return message.reply(response);
+	return response;
 };
 
 module.exports = {
@@ -31,27 +31,26 @@ module.exports = {
 		switch (subcommand) {
 		case 'add':
 			if (!args[0]) return message.reply('You need to specify a role id');
-			command.editType(
-				message,
+			const errMsg1 = await command.editType(
 				false,
-				'The role could not be added.',
 				`INSERT INTO admin (server_id, role_id) VALUES ('${message.serverId}', '${args[0]}')`,
 				`SELECT * FROM admin WHERE server_id = '${message.serverId}' AND role_id = '${args[0]}'`,
 			);
-			break;
+			return message.reply(command.botReply(errMsg1, subcmd));
+
 		case 'remove':
 			if (!args[0]) return message.reply('You need to specify a role id');
-			command.editType(
-				message,
+			const errMsg2 = await command.editType(
 				true,
-				'The role could not be removed',
 				`DELETE FROM admin WHERE server_id = '${message.serverId}' AND role_id = '${args[0]}'`,
 				`SELECT * FROM admin WHERE server_id = '${message.serverId}' AND role_id = '${args[0]}'`,
 			);
-			break;
+			return message.reply(command.botReply(errMsg2, subcmd));
+
 		case 'view':
-			await command.infoView(message, `SELECT * FROM admin WHERE server_id = '${message.serverId}'`);
-			break;
+			const responseView = await command.infoView(`SELECT * FROM admin WHERE server_id = '${message.serverId}'`);
+			return message.reply(responseView);
+
 		default:
 			return message.reply('You need to use a subcommand.');
 		}

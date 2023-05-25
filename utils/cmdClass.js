@@ -16,19 +16,33 @@ class Command {
 					if (memberRoleIds[i] == rows[j].role_id) return true;
 				}
 			}
+			return false;
 		}
-		return false;
+		else {
+			return true;
+		}
 	}
 
-	async editType(message, updateCell, errorMsg, editSql, viewSql) {
+	async editType(updateCell, editSql, viewSql) {
 		const rows = await dbCtrl.view(viewSql);
 		if ((rows[0] === undefined && updateCell) || (rows[0] !== undefined && !updateCell)) {
-			return message.reply(errorMsg);
+			return true;
 		}
 		else {
 			dbCtrl.edit(editSql);
-			return message.reply(`The ${this.name} has successfully been updated.`);
+			return false;
 		}
+	}
+
+	capName() {
+		return this.name[0].toUpperCase() + this.name.substring(1);
+	}
+
+	botReply(isError, subcmd) {
+		if (isError && subcmd.endsWith('e')) return `${this.capName()} failed to be ${subcmd}d.`;
+		else if (isError) return `${this.capName()} failed to be ${subcmd}ed.`;
+		else if (subcmd.endsWith('e')) return `${this.capName()} was successfully ${subcmd}d.`;
+		else return `${this.capName()} was successfully ${subcmd}ed.`;
 	}
 }
 

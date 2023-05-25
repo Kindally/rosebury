@@ -7,7 +7,7 @@ const command = new Command(
 	true,
 );
 
-Command.prototype.infoView = async function(message, sql) {
+Command.prototype.infoView = async function(sql) {
 	const rows = await dbCtrl.view(sql);
 	if (rows[0] === undefined) return 'There are no roleplaying channels to view.';
 	const content = [];
@@ -18,12 +18,12 @@ Command.prototype.infoView = async function(message, sql) {
 	}
 
 	const response = content.join('');
-	return message.reply(response);
+	return response;
 };
 
 module.exports = {
 	callback: async (message, userMessage) => {
-		let access;
+		let access = true;
 		if (command.admin) access = await command.cmdCtrl(message.member.isOwner, message.member.roleIds, message.serverId);
 		if (!access) return message.reply('Only admins of this server can use this command');
 
@@ -32,39 +32,36 @@ module.exports = {
 		switch (subcmd) {
 		case 'add':
 			if (!args[0]) return message.reply('You need to specify channel name.');
-			await command.editType(
-				message,
+			const errMsg1 = await command.editType(
 				false,
-				'The channel could not be added as it already exists.',
 				`INSERT INTO rp_channel (server_id, channel_id, channel_name) VALUES ('${message.serverId}', '${message.channelId}', '${args[0]}')`,
 				`SELECT * FROM rp_channel WHERE server_id = '${message.serverId}' AND channel_id = '${message.channelId}'`,
 			);
-			break;
+			return message.reply(command.botReply(errMsg1, subcmd));
+
 		case 'remove':
-			await command.editType(
-				message,
+			const errMsg2 = await command.editType(
 				true,
-				'The channel could not be removed as it doesn\'t exist.',
 				`DELETE FROM rp_channel WHERE server_id = '${message.serverId}' AND channel_id = '${message.channelId}'`,
 				`SELECT * FROM rp_channel WHERE server_id = '${message.serverId}' AND channel_id = '${message.channelId}'`,
 			);
-			break;
+			return message.reply(command.botReply(errMsg2, subcmd));
+
 		case 'update':
 			if (!args[0]) return message.reply('You need to specifiy new channel name.');
-			await command.editType(
-				message,
+			const errMsg3 = await command.editType(
 				true,
-				'The channel could not be updated as it doesn\'t exist.',
 				`UPDATE rp_channel SET channel_name = '${args[0]}' WHERE server_id = '${message.serverId}' AND channel_id = '${message.channelId}'`,
 				`SELECT * FROM rp_channel WHERE server_id = '${message.serverId}' AND channel_id = '${message.channelId}'`,
 			);
-			break;
+			return message.reply(command.botReply(errMsg3, subcmd));
+
 		case 'view':
-			await command.infoView(
-				message,
+			const responseView = await command.infoView(
 				`SELECT * FROM rp_channel WHERE server_id = '${message.serverId}' AND channel_id = '${message.channelId}'`,
 			);
-			break;
+			return message.reply(responseView);
+			
 		default:
 			return message.reply('You need to use a valid subcommand');
 		}
