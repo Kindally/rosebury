@@ -13,10 +13,10 @@ Command.prototype.infoView = async function(sql) {
 	const content = [];
 
 	for (let i = 0; i < rows.length; i++) {
-		content.push(`${rows[i].role_id}\n`);
+		content.push(`${rows[i].role_id}`);
 	}
 
-	const response = content.join('');
+	const response = content.join('\n');
 	return response;
 };
 
@@ -26,9 +26,9 @@ module.exports = {
 		if (command.admin) access = await command.cmdCtrl(message.member.isOwner, message.member.roleIds, message.authorId);
 		if (!access) return message.reply('Only admins of this server can use this command');
 
-		const [ , subcommand, ...args ] = userMessage;
+		const [ , subcmd, ...args ] = userMessage;
 
-		switch (subcommand) {
+		switch (subcmd) {
 		case 'add':
 			if (!args[0]) return message.reply('You need to specify a role id');
 			const errMsg1 = await command.editType(
@@ -41,7 +41,7 @@ module.exports = {
 		case 'remove':
 			if (!args[0]) return message.reply('You need to specify a role id');
 			const errMsg2 = await command.editType(
-				true,
+				false,
 				`DELETE FROM admin WHERE server_id = '${message.serverId}' AND role_id = '${args[0]}'`,
 				`SELECT * FROM admin WHERE server_id = '${message.serverId}' AND role_id = '${args[0]}'`,
 			);
