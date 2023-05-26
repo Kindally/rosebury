@@ -33,26 +33,28 @@ module.exports = {
 		case 'add':
 			if (!args[0]) return message.reply('You need to specify channel name.');
 			const errMsg1 = await command.editType(
-				false,
 				`INSERT INTO rp_channel (server_id, channel_id, channel_name) VALUES ('${message.serverId}', '${message.channelId}', '${args[0]}')`,
 				`SELECT * FROM rp_channel WHERE server_id = '${message.serverId}' AND channel_id = '${message.channelId}'`,
+				false,
+				true,
 			);
 			return message.reply(command.botReply(errMsg1, subcmd));
 
 		case 'remove':
 			const errMsg2 = await command.editType(
-				true,
 				`DELETE FROM rp_channel WHERE server_id = '${message.serverId}' AND channel_id = '${message.channelId}'`,
 				`SELECT * FROM rp_channel WHERE server_id = '${message.serverId}' AND channel_id = '${message.channelId}'`,
+				true,
+				true,
 			);
 			return message.reply(command.botReply(errMsg2, subcmd));
 
 		case 'update':
 			if (!args[0]) return message.reply('You need to specifiy new channel name.');
 			const errMsg3 = await command.editType(
-				true,
 				`UPDATE rp_channel SET channel_name = '${args[0]}' WHERE server_id = '${message.serverId}' AND channel_id = '${message.channelId}'`,
 				`SELECT * FROM rp_channel WHERE server_id = '${message.serverId}' AND channel_id = '${message.channelId}'`,
+				true,
 			);
 			return message.reply(command.botReply(errMsg3, subcmd));
 

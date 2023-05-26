@@ -23,9 +23,11 @@ class Command {
 		}
 	}
 
-	async editType(updateCell, editSql, viewSql) {
+	// updateCell allows the bot to update/remove the mysql row if true. Should not be used to allow to add row if it already exists
+	// doIfExists allows the bot to run the code even if the mysql row already exists
+	async editType(editSql, viewSql, updateRow = false, doIfExists = false) {
 		const rows = await dbCtrl.view(viewSql);
-		if ((rows[0] === undefined && updateCell) || (rows[0] !== undefined && !updateCell)) {
+		if ((rows[0] === undefined && updateRow) || (rows[0] !== undefined && !updateRow) || (rows[0] !== undefined && !doIfExists)) {
 			return true;
 		}
 		else {

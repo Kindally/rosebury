@@ -32,16 +32,16 @@ module.exports = {
 		case 'add':
 			if (!args[0]) return message.reply('You need to specify a role id');
 			const errMsg1 = await command.editType(
-				false,
 				`INSERT INTO admin (server_id, role_id) VALUES ('${message.serverId}', '${args[0]}')`,
 				`SELECT * FROM admin WHERE server_id = '${message.serverId}' AND role_id = '${args[0]}'`,
+				false,
+				true,
 			);
 			return message.reply(command.botReply(errMsg1, subcmd));
 
 		case 'remove':
 			if (!args[0]) return message.reply('You need to specify a role id');
 			const errMsg2 = await command.editType(
-				false,
 				`DELETE FROM admin WHERE server_id = '${message.serverId}' AND role_id = '${args[0]}'`,
 				`SELECT * FROM admin WHERE server_id = '${message.serverId}' AND role_id = '${args[0]}'`,
 			);
