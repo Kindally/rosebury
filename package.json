@@ -10,9 +10,14 @@
   "license": "ISC",
   "dependencies": {
     "guilded.js": "^0.22.2",
-    "mysql2": "^3.3.1"
+    "mysql2": "^3.3.1",
+    "typescript": "^5.0.4"
   },
   "devDependencies": {
     "eslint": "^8.40.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Kindally/rosebury"
   }
 }
