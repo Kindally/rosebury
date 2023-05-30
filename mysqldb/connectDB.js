@@ -10,13 +10,13 @@ const dbCtrl = (() => {
 	});
 
 	function edit(sql) {
-		con.query(sql, function(err) {
+		con.query(sql, function (err) {
 			if (err) throw err;
 		});
 	}
 
 	async function view(sql) {
-		const [ rows ] = await con.promise().query(sql);
+		const [rows] = await con.promise().query(sql);
 		return rows;
 	}
 

@@ -7,7 +7,7 @@ const command = new Command(
 	true,
 );
 
-Command.prototype.infoView = async function(sql) {
+Command.prototype.infoView = async function (sql) {
 	const rows = await dbCtrl.view(sql);
 	const content = [];
 
@@ -27,33 +27,33 @@ module.exports = {
 		const [, subcmd, ...args] = userMessage;
 
 		switch (subcmd) {
-		case 'prefix':
-			if (!args[0]) return message.reply('You need to specify a new prefix');
-			if (args[0].length > 3) return message.reply('The prefix is too long.');
-			const errMsg1 = await command.editType(
-				true,
-				`UPDATE settings SET prefix = '${args[0]}' WHERE server_id = '${message.serverId}'`,
-				`SELECT * FROM settings WHERE server_id = '${message.serverId}'`,
-			);
-			return message.reply(command.botReply(errMsg1, subcmd));
+			case 'prefix':
+				if (!args[0]) return message.reply('You need to specify a new prefix');
+				if (args[0].length > 3) return message.reply('The prefix is too long.');
+				const errMsg1 = await command.editType(
+					true,
+					`UPDATE settings SET prefix = '${args[0]}' WHERE server_id = '${message.serverId}'`,
+					`SELECT * FROM settings WHERE server_id = '${message.serverId}'`,
+				);
+				return message.reply(command.botReply(errMsg1, subcmd));
 
-		case 'xprate':
-			if (!args[0]) return message.reply('You need to specify a new prefix');
-			const newRate = Number(args[0]);
-			if (!Number.isInteger(newRate)) return message.reply('You need to specify a valid number');
-			const errMsg2 = await command.editType(
-				true,
-				`UPDATE settings SET experience_rate = ${newRate} WHERE server_id = '${message.serverId}'`,
-				`SELECT * FROM settings WHERE server_id = '${message.serverId}'`,
-			);
-			return message.reply(command.botReply(errMsg2, subcmd));
+			case 'xprate':
+				if (!args[0]) return message.reply('You need to specify a new prefix');
+				const newRate = Number(args[0]);
+				if (!Number.isInteger(newRate)) return message.reply('You need to specify a valid number');
+				const errMsg2 = await command.editType(
+					true,
+					`UPDATE settings SET experience_rate = ${newRate} WHERE server_id = '${message.serverId}'`,
+					`SELECT * FROM settings WHERE server_id = '${message.serverId}'`,
+				);
+				return message.reply(command.botReply(errMsg2, subcmd));
 
-		case 'view':
-			const response = await command.infoView(`SELECT * FROM settings WHERE server_id = '${message.serverId}'`);
-			return message.reply(response);
+			case 'view':
+				const response = await command.infoView(`SELECT * FROM settings WHERE server_id = '${message.serverId}'`);
+				return message.reply(response);
 
-		default:
-			return message.reply('You need to use a valid subcommand');
+			default:
+				return message.reply('You need to use a valid subcommand');
 		}
 	},
 }
