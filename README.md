@@ -15,6 +15,13 @@ This bot is mostly a project for me to practice and familiarize myself with java
   - Command that allows you to view/add/remove admin roles
 - profile
   - Command that allows you to view/add/update/remove users' character profiles
+- settings
+  - Command that allows you to edit prefix and how easy it should be to gain experience
+
+## Other features
+
+- Experience handler
+  - Passively counts experience in channels set to be roleplaying channels
 
 ## Planned features
 
@@ -24,7 +31,6 @@ This bot is mostly a project for me to practice and familiarize myself with java
 
 - Anyone
   - Command that gives tips and command suggestions
-  - Passively counts experience in admin chosen channels
   - Command that lets you view your current experience
   - Command to add/edit/remove a character profile
 
@@ -91,5 +97,22 @@ Updates an old profile name into the new one. Both of which are specified by the
 #### !profile remove PROFILE_NAME
 
 Removes a profile with the specified name
+
+</details>
+
+<details>
+<summary>Settings</summary>
+
+```!settings {prefix/xprate} {args}```
+
+### !settings prefix NEW_PREFIX
+
+Changes the current prefix to the specified one (at most 3 characters)
+Default: !
+
+### !settings xprate NEW_EXPERIENCE_RATE
+
+Changes the current experience rate (must be a number!)
+Default: 100
 
 </details>
